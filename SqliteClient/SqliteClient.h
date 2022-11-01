@@ -1,7 +1,9 @@
 #pragma once
 
+#include "sqliteclient_global.h"
 #include <Sqlite.h>
-#include "SqliteConnecter.h"
+#include <QtNetwork>
+
 
 class SQLITECLIENT_EXPORT SqliteClient : public Sqlite
 {
@@ -9,14 +11,13 @@ public:
     static constexpr quint16 ServerPort = 3000;
     SqliteClient();
 
-    void connectToServer(const QString& account, const QString& password, const QString& hostName, quint16 port = ServerPort);
+    void connectToServer(QString hostName, quint16 port = ServerPort);
 
 private:
     QTcpSocket* m_socket = nullptr;
 
 private slots:
     void socketReadyRead();
+    void socketConnected();
     void socketDisconnected();
-    void sqliteConnected(QTcpSocket* tcpSocket);
-    void sqliteConnectFailed();
 };

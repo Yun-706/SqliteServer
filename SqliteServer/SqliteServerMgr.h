@@ -7,8 +7,6 @@ class SQLITESERVER_EXPORT SqliteServerMgr : public QObject
 {
 public:
 	SqliteServerMgr();
-	static constexpr auto IPAcceptableType = QHostAddress::Any;
-	static bool CreateAccount(const QString& account, const QString& password);
 
 private:
 	SqliteServer server;

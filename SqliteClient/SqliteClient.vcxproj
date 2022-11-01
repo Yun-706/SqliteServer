@@ -104,11 +104,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="SqliteConnecter.cpp" />
     <ClInclude Include="sqliteclient_global.h" />
     <ClInclude Include="SqliteClient.h" />
     <ClCompile Include="SqliteClient.cpp" />
-    <QtMoc Include="SqliteConnecter.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sqlite\Sqlite.vcxproj">

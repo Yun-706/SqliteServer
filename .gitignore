@@ -4,6 +4,7 @@
 bin/
 bin-int/
 **/qmake/
+**/database/
 
 # files
 

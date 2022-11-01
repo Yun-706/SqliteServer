@@ -1,39 +1,51 @@
 #include "SqliteClient.h"
-#include <iostream>
+#include <QDebug>
 
 SqliteClient::SqliteClient()
 {
-	std::cout << "SqliteClient OK.\n";
 }
 
-void SqliteClient::connectToServer(QString hostName, quint16 port)
+void SqliteClient::connectToServer(const QString& account, const QString& password, const QString& hostName, quint16 port)
 {
 	if (m_socket) {
 		m_socket->close();
 		m_socket->deleteLater();
 		m_socket = nullptr;
 	}
-	m_socket = new QTcpSocket();
-	QObject::connect(m_socket, &QTcpSocket::readyRead, this, &SqliteClient::socketReadyRead);
-	QObject::connect(m_socket, &QTcpSocket::connected, this, &SqliteClient::socketConnected);
-	QObject::connect(m_socket, &QTcpSocket::disconnected, this, &SqliteClient::socketDisconnected);
-	m_socket->connectToHost(hostName, port);
+
+	SqliteConnecter* connecter = new SqliteConnecter(account, password, hostName, port);
+	QObject::connect(connecter, &SqliteConnecter::sqliteConnected, this, &SqliteClient::sqliteConnected);
+	QObject::connect(connecter, &SqliteConnecter::sqliteConnectFailed, this, &SqliteClient::sqliteConnectFailed);
 }
 
 void SqliteClient::socketReadyRead()
 {
-	std::cout << "SqliteClient TcpSocket ReadyRead.\n";
+	qInfo() << "SqliteClient TcpSocket ReadyRead.";
 	QByteArray data = m_socket->readAll();
-	std::cout << "SqliteClient Received: " << data.toStdString() << "\n";
-}
-
-void SqliteClient::socketConnected()
-{
-	std::cout << "SqliteClient TcpSocket Connected.\n";
-	m_socket->write("Hello, I am Client!");
+	qInfo() << "SqliteClient Received: " << data;
 }
 
 void SqliteClient::socketDisconnected()
 {
-	std::cout << "SqliteClient TcpSocket Disconnected.\n";
+	qInfo() << "SqliteClient TcpSocket Disconnected.";
+	m_socket->deleteLater();
+	m_socket = nullptr;
+}
+
+void SqliteClient::sqliteConnected(QTcpSocket* tcpSocket)
+{
+	qInfo() << "SqliteClient Sqlite Connected.";
+	m_socket = tcpSocket;
+	QObject::connect(m_socket, &QTcpSocket::readyRead, this, &SqliteClient::socketReadyRead);
+	QObject::connect(m_socket, &QTcpSocket::disconnected, this, &SqliteClient::socketDisconnected);
+}
+
+void SqliteClient::sqliteConnectFailed()
+{
+	if (m_socket) {
+		m_socket->disconnectFromHost();
+		m_socket->deleteLater();
+		m_socket = nullptr;
+	}
+	qWarning() << "SqliteClient TcpSocket Connect Failed.";
 }

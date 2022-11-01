@@ -10,9 +10,9 @@ int main(int argc, char *argv[])
     SqliteClient client;
     SqliteServerMgr serverMgr;
 
-    //std::cout << (serverMgr.CreateAccount("chunlai", "2333") ? "~true\n" : "~false\n");
+    std::cout << (serverMgr.CreateAccount("helloSqlite", "2333") ? "~true\n" : "~false\n");
 
-    client.connectToServer("chunlai", "2333", "fe80::2078:cc10:5a89:97e3%13");
+    client.connectToServer("helloSqlite", "2333", "127.0.0.1");
 
     return a.exec();
 }

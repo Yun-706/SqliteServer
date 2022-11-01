@@ -1,0 +1,11 @@
+# dirs
+
+.vs/
+bin/
+bin-int/
+**/qmake/
+
+# files
+
+*.user
+*.filter

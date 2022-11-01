@@ -32,13 +32,13 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>6.4.0_msvc2019_64</QtInstall>
-    <QtModules>core;network</QtModules>
+    <QtModules>core;network;</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
     <QtHeaderSearchPath>$(SolutionDir)Sqlite;</QtHeaderSearchPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
     <QtInstall>6.4.0_msvc2019_64</QtInstall>
-    <QtModules>core;network</QtModules>
+    <QtModules>core;network;</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
     <QtHeaderSearchPath>$(SolutionDir)Sqlite;</QtHeaderSearchPath>
   </PropertyGroup>
@@ -103,9 +103,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="SqliteServerCreater.h" />
     <ClInclude Include="SqliteServerMgr.h" />
     <ClInclude Include="sqliteserver_global.h" />
     <ClInclude Include="SqliteServer.h" />
+    <ClCompile Include="SqliteServerCreater.cpp" />
     <ClCompile Include="SqliteServerMgr.cpp" />
     <ClCompile Include="SqliteServer.cpp" />
   </ItemGroup>

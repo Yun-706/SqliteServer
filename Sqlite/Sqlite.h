@@ -1,7 +1,7 @@
 #pragma once
 
 #include "sqlite_global.h"
-#include <qobject.h>
+#include <QObject>
 
 class SQLITE_EXPORT Sqlite : public QObject
 {

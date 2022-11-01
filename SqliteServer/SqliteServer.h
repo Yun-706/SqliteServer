@@ -1,14 +1,15 @@
 #pragma once
 
 #include "sqliteserver_global.h"
+#include <QObject>
+#include <QtNetwork>
 #include <Sqlite.h>
-#include <qobject.h>
-#include <qtcpserver.h>
-#include <qtcpsocket.h>
+
 
 class SQLITESERVER_EXPORT SqliteServer : public QObject
 {
 public:
+    static constexpr quint16 Port = 3000;
     SqliteServer();
 
 private:
